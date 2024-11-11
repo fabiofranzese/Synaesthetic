@@ -1,32 +1,81 @@
-//
-//  ContentView.swift
-//
-//  Created by Gabriele Fiore on 08/11/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    // Capture the start time when the view is created
-    let start = Date()
+    @State private var showWebView = true
+    @State private var sketchName = "index" // Name of the HTML file to load
+    @State private var isDarkMode = false
 
     var body: some View {
-        TimelineView(.animation) { tl in
-            // Calculate elapsed time since the start
-            let time = start.distance(to: tl.date)
-            
-            // Apply the sinebow shader effect to a fullscreen Rectangle
-            Rectangle()
-                .visualEffect { content, proxy in
-                    content.colorEffect(
-                        ShaderLibrary.sinebow( // Reference to the Metal shader
-                            .float2(proxy.size), // Pass the size of the view
-                            .float(time)         // Pass the elapsed time
-                        )
-                    )
+        NavigationView {
+            VStack {
+                // Header
+                HStack {
+                    Text("Live p5.js Viewer")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    Spacer()
+                    
+                    Toggle(isOn: $isDarkMode) {
+                        Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
+                    }
+                    .toggleStyle(SwitchToggleStyle(tint: .blue))
                 }
-                .ignoresSafeArea() // Make the Rectangle fill the entire screen
+                
+                Divider()
+                
+                // Display WebView
+                if showWebView {
+                    WebView(htmlFile: sketchName)
+                        .frame(height: 400)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                        .padding()
+                } else {
+                    Text("WebView is Hidden")
+                        .foregroundColor(.secondary)
+                        .padding()
+                }
+                
+                // Control Panel
+                HStack {
+                    Button(action: {
+                        showWebView.toggle()
+                    }) {
+                        Label(showWebView ? "Hide Sketch" : "Show Sketch", systemImage: showWebView ? "eye.slash" : "eye")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        reloadSketch()
+                    }) {
+                        Label("Reload Sketch", systemImage: "arrow.clockwise")
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                }
+                .padding()
+                
+                Spacer()
+            }
+            .padding()
+            .navigationBarHidden(true)
+            .background(isDarkMode ? Color.black.edgesIgnoringSafeArea(.all) : Color.white.edgesIgnoringSafeArea(.all))
         }
+    }
+    
+    // Placeholder reload functionality
+    func reloadSketch() {
+        // Future enhancement: dynamically reload HTML file or apply live changes
+        print("Reload sketch requested.")
     }
 }
 
@@ -35,3 +84,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
