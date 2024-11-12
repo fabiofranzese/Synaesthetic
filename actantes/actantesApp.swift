@@ -11,6 +11,7 @@ import SwiftUI
 struct actantesApp: App {
     var body: some Scene {
         WindowGroup {
+            //Replace with corresponding view
             ContentView()
         }
     }

@@ -6,7 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		30C81E952CE37D7100E24F44 /* aP.js in Resources */ = {isa = PBXBuildFile; fileRef = 30C81E932CE37D7100E24F44 /* aP.js */; };
+		30C81E962CE37D7100E24F44 /* psystem.js in Resources */ = {isa = PBXBuildFile; fileRef = 30C81E942CE37D7100E24F44 /* psystem.js */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		30C81E932CE37D7100E24F44 /* aP.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = aP.js; sourceTree = "<group>"; };
+		30C81E942CE37D7100E24F44 /* psystem.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = psystem.js; sourceTree = "<group>"; };
 		E50CC6762CD23AA0009F1577 /* actantes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = actantes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -29,9 +36,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30C81E922CE37D4E00E24F44 /* P5Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				30C81E932CE37D7100E24F44 /* aP.js */,
+				30C81E942CE37D7100E24F44 /* psystem.js */,
+			);
+			path = P5Scripts;
+			sourceTree = "<group>";
+		};
 		E50CC66D2CD23AA0009F1577 = {
 			isa = PBXGroup;
 			children = (
+				30C81E922CE37D4E00E24F44 /* P5Scripts */,
 				E50CC6782CD23AA0009F1577 /* actantes */,
 				E50CC6772CD23AA0009F1577 /* Products */,
 			);
@@ -109,6 +126,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30C81E952CE37D7100E24F44 /* aP.js in Resources */,
+				30C81E962CE37D7100E24F44 /* psystem.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
