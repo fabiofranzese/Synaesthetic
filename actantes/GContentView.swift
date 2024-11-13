@@ -1,9 +1,10 @@
 import SwiftUI
 
-struct ContentView: View {
+struct GContentView: View {
     @State private var showWebView = true
-    @State private var sketchName = "index" // Name of the HTML file to load
     @State private var isDarkMode = false
+    @State private var reloadTrigger = UUID() // Unique ID to force reload
+    @State private var permissionGranted = false // Track microphone access
 
     var body: some View {
         NavigationView {
@@ -14,30 +15,36 @@ struct ContentView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .padding()
-                    
+
                     Spacer()
-                    
+
                     Toggle(isOn: $isDarkMode) {
                         Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
                     }
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                 }
-                
+
                 Divider()
-                
-                // Display WebView
-                if showWebView {
-                    WebView(htmlFile: sketchName)
-                        .frame(height: 400)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                        .padding()
+
+                // Display SampleWebViewWParticles
+                if permissionGranted {
+                    if showWebView {
+                        SampleWebViewWParticles()
+                            .id(reloadTrigger) // Force recreate view on reload
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                            .padding()
+                    } else {
+                        Text("WebView is Hidden")
+                            .foregroundColor(.secondary)
+                            .padding()
+                    }
                 } else {
-                    Text("WebView is Hidden")
+                    Text("Microphone access is required to visualize the particles.")
                         .foregroundColor(.secondary)
                         .padding()
                 }
-                
+
                 // Control Panel
                 HStack {
                     Button(action: {
@@ -49,9 +56,9 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    
+
                     Spacer()
-                    
+
                     Button(action: {
                         reloadSketch()
                     }) {
@@ -63,25 +70,23 @@ struct ContentView: View {
                     }
                 }
                 .padding()
-                
+
                 Spacer()
+
+                // Microphone Access Section
+                GMicrophonePermissionView(permissionGranted: $permissionGranted)
+                    .padding()
             }
             .padding()
             .navigationBarHidden(true)
             .background(isDarkMode ? Color.black.edgesIgnoringSafeArea(.all) : Color.white.edgesIgnoringSafeArea(.all))
         }
     }
-    
-    // Placeholder reload functionality
+
+    // Reload functionality
     func reloadSketch() {
-        // Future enhancement: dynamically reload HTML file or apply live changes
-        print("Reload sketch requested.")
+        // Change the reloadTrigger ID to force the view to reload
+        reloadTrigger = UUID()
+        print("Reloading sketch...")
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
+}; #Preview {GContentView()}
