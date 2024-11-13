@@ -57,10 +57,10 @@ class AudioProcessor: ObservableObject {
     private func groupFrequencyBands(_ frequencies: [Float]) -> [String: Float] {
         // Simplified frequency band grouping
         // You might want to adjust these ranges based on your needs
-        let subRange = 0..<20     // 20-60 Hz
-        let lowRange = 20..<100   // 60-250 Hz
-        let midRange = 100..<300  // 250-2000 Hz
-        let hiRange = 300..<500   // 2000-4000 Hz
+        let subRange = 0..<10     // 20-60 Hz
+        let lowRange = 10..<80  // 60-250 Hz
+        let midRange = 80..<250  // 250-2000 Hz
+        let hiRange = 250..<500   // 2000-4000 Hz
         let trebleRange = 500..<frequencies.count // 4000-20000 Hz
         
         return [

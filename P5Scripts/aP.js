@@ -20,14 +20,14 @@ class aP{
       let a = noise(this.id,t*.18)*TWO_PI*2;
       
       
-      if(this.freq == 0){this.amp = sub_freq/200;}
+      if(this.freq == 0){this.amp = sub_freq/255;}
       if(this.freq == 1){this.amp= low_freq/200;}
       if(this.freq == 2){this.amp = mid_freq/200;}
       if(this.freq == 3){this.amp = hi_freq/200;}
       if(this.freq == 4){this.amp = treble_freq/200;}
       
-     this.pos.x += sin(a)*this.amp *  2.95 * (this.freq+1)  ;
-     this.pos.y += cos(a)*this.amp *  2.95 * (this.freq+1)  ;
+     this.pos.x += sin(a)*this.amp *  3.2 * (this.freq+1)  ;
+     this.pos.y += cos(a)*this.amp *  3.2 * (this.freq+1)  ;
       
       this.center.x =  w *.5 - this.pos.x   ;
       this.center.y =  h *.5-  this.pos.y  ;
@@ -48,9 +48,8 @@ class aP{
       if(this.pos.y<0){ this.pos.y =h ; }
       
       noStroke();
-      
       fill(200 + this.freq*10);
-      let psize = 2 + (5-this.freq)*3 *this.amp*.6
+      let psize = 6 + (5-this.freq)*2 *this.amp*.6
       ellipse(this.pos.x,this.pos.y, psize );
     
     }
