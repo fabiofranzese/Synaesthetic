@@ -3,7 +3,7 @@ let allP = [];
 function initParticles(){
 
   
-  for(let i=0;i<300;i++){
+  for(let i=0;i<3000;i++){
   
       
    let rf = int(random(0,5)); 

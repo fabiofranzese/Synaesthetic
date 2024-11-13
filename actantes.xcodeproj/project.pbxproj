@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14D089942CE3B379008934CF /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14D089932CE3B373008934CF /* info.plist */; };
 		30A14CAC2CE4C0A80072A038 /* sketch.js in Resources */ = {isa = PBXBuildFile; fileRef = 30A14CAB2CE4C0A80072A038 /* sketch.js */; };
 		30C81E952CE37D7100E24F44 /* aP.js in Resources */ = {isa = PBXBuildFile; fileRef = 30C81E932CE37D7100E24F44 /* aP.js */; };
 		30C81E962CE37D7100E24F44 /* psystem.js in Resources */ = {isa = PBXBuildFile; fileRef = 30C81E942CE37D7100E24F44 /* psystem.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14D089932CE3B373008934CF /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = info.plist; sourceTree = "<group>"; };
 		30A14CAB2CE4C0A80072A038 /* sketch.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sketch.js; sourceTree = "<group>"; };
 		30C81E932CE37D7100E24F44 /* aP.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = aP.js; sourceTree = "<group>"; };
 		30C81E942CE37D7100E24F44 /* psystem.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = psystem.js; sourceTree = "<group>"; };
@@ -53,7 +51,6 @@
 		E50CC66D2CD23AA0009F1577 = {
 			isa = PBXGroup;
 			children = (
-				14D089932CE3B373008934CF /* info.plist */,
 				30C81E922CE37D4E00E24F44 /* P5Scripts */,
 				E50CC6782CD23AA0009F1577 /* actantes */,
 				E50CC6772CD23AA0009F1577 /* Products */,
@@ -132,7 +129,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14D089942CE3B379008934CF /* info.plist in Resources */,
 				30C81E952CE37D7100E24F44 /* aP.js in Resources */,
 				30A14CAC2CE4C0A80072A038 /* sketch.js in Resources */,
 				30C81E962CE37D7100E24F44 /* psystem.js in Resources */,
@@ -282,7 +278,7 @@
 				DEVELOPMENT_TEAM = 7D3NW638AF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MICROPHONE!!!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -312,7 +308,7 @@
 				DEVELOPMENT_TEAM = 7D3NW638AF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MICROPHONE!!!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
