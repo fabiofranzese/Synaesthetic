@@ -187,12 +187,14 @@ struct P5WebViewContainer: UIViewRepresentable {
 
 // ContentView.swift
 struct ContentView: View {
+    @StateObject private var recorder = ScreenRecorder()
     @State private var permissionGranted = false
     @StateObject private var audioProcessor = AudioProcessor()
     @State private var audioEngineError: Error?
     
     var body: some View {
         if permissionGranted {
+            ZStack{
             visualizationView
                 .onAppear {
                     startAudioEngine()
@@ -207,6 +209,40 @@ struct ContentView: View {
                         Text(error.localizedDescription)
                     }
                 }
+                
+                VStack(spacing: 30) {
+                    // Recording status
+                    Spacer()
+                    
+                    // Record button
+                    Button(action: {
+                        if recorder.isRecording {
+                            recorder.stopRecording()
+                        } else {
+                            recorder.startRecording()
+                        }
+                    }) {
+                        HStack(spacing: 10) {
+                            Image(systemName: recorder.isRecording ? "stop.circle.fill" : "record.circle")
+                                .font(.system(size: 48))
+                        }
+                        .foregroundColor(recorder.isRecording ? .gray : .white)
+                        .padding()
+                        .background(recorder.isRecording ? .white : .gray)
+                        .cornerRadius(100)
+                        .overlay(
+                            Circle()
+                                .stroke(recorder.isRecording ? .gray : .clear, lineWidth: 2)
+                        )
+                    }.padding(40)
+                        .opacity(0.7)
+                }
+                .alert("Recording Error", isPresented: $recorder.showError) {
+                    Button("OK", role: .cancel) {}
+                } message: {
+                    Text(recorder.errorMessage)
+                }
+        }
         } else {
             MicrophonePermissionView(permissionGranted: $permissionGranted)
                 .onChange(of: permissionGranted) { oldValue, newValue in
