@@ -19,9 +19,22 @@
 		E50CC6762CD23AA0009F1577 /* actantes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = actantes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E5979EFC2CEB50A6005715FC /* Exceptions for "actantes" folder in "actantes" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E50CC6752CD23AA0009F1577 /* actantes */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E50CC6782CD23AA0009F1577 /* actantes */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E5979EFC2CEB50A6005715FC /* Exceptions for "actantes" folder in "actantes" target */,
+			);
 			path = actantes;
 			sourceTree = "<group>";
 		};
@@ -278,7 +291,10 @@
 				DEVELOPMENT_TEAM = 3A97D54DHC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MICROPHONE!!!";
+				INFOPLIST_FILE = actantes/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access your microphone.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save Live Photos to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to save Live Photos to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -309,7 +325,10 @@
 				DEVELOPMENT_TEAM = 3A97D54DHC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "MICROPHONE!!!";
+				INFOPLIST_FILE = actantes/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access your microphone.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save Live Photos to your photo library.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to save Live Photos to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

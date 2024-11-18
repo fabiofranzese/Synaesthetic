@@ -138,10 +138,10 @@ struct P5WebViewContainer: UIViewRepresentable {
                 hi_freq = \(bands["hi"] ?? 0);
                 treble_freq = \(bands["treble"] ?? 0);
             """
-            print("Updating JS with values: \(bands)")
+            //print("Updating JS with values: \(bands)")
             webView?.evaluateJavaScript(js) { result, error in
                 if let error = error {
-                    print("Error updating JS values: \(error)")
+                    //print("Error updating JS values: \(error)")
                 }
             }
         }
@@ -188,10 +188,15 @@ struct P5WebViewContainer: UIViewRepresentable {
 // ContentView.swift
 struct ContentView: View {
     @StateObject private var recorder = ScreenRecorder()
+    @State private var frameURL : URL?
+    @State private var mov : URL?
+    @State private var savedURL: URL?
     @State private var permissionGranted = false
     @StateObject private var audioProcessor = AudioProcessor()
     @State private var audioEngineError: Error?
-    
+    @State private var showError: Bool = false
+    @State private var errorMessage: String = ""
+
     var body: some View {
         if permissionGranted {
             ZStack{
@@ -218,6 +223,20 @@ struct ContentView: View {
                     Button(action: {
                         if recorder.isRecording {
                             recorder.stopRecording()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // Small delay to ensure URL is set
+                                if let videoURL = recorder.url {
+                                    self.savedURL = videoURL
+                                }
+                                print(self.savedURL?.absoluteString) // Call the function with the URL
+                                self.mov = convertMP4ToMOV(mp4URL: self.savedURL!)
+                                print(self.mov?.absoluteString)
+                                self.frameURL = extractRandomFrameURL(from: self.mov!)
+                                print(self.frameURL?.absoluteString)
+                                LivePhoto.generate(from: self.frameURL, videoURL: self.mov!, progress: { percent in }, completion: { livePhoto, resources in
+                                  // Or save the resources to the Photo library
+                                    LivePhoto.saveToLibrary(resources!, completion: {success in })
+                                  })
+                                }
                         } else {
                             recorder.startRecording()
                         }
@@ -254,12 +273,12 @@ struct ContentView: View {
     }
     
     private func startAudioEngine() {
-        print("Attempting to start audio engine...")
+        //print("Attempting to start audio engine...")
         do {
             try audioProcessor.start()
-            print("Audio engine started successfully")
+            //print("Audio engine started successfully")
         } catch {
-            print("Failed to start audio engine: \(error)")
+            //print("Failed to start audio engine: \(error)")
             audioEngineError = error
         }
     }
@@ -267,9 +286,9 @@ struct ContentView: View {
     private var visualizationView: some View {
             let scriptFiles = ["aP", "psystem", "sketch"]
             let loadedScripts = scriptFiles.compactMap { filename in
-                print("Loading script: \(filename)")
+                //print("Loading script: \(filename)")
                 let script = FileManager.loadFile(named: filename)
-                print("Script \(filename) loaded: \(script != nil)")
+                //print("Script \(filename) loaded: \(script != nil)")
                 return script
             }.map { "<script>\($0)</script>" }
             

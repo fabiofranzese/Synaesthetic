@@ -21,24 +21,24 @@ class AudioProcessor: ObservableObject {
     }
     
     private func setupAudioEngine() {
-        print("Setting up audio engine...")
+        //print("Setting up audio engine...")
         let inputNode = engine.inputNode
         let format = inputNode.inputFormat(forBus: 0)
-        print("Input format: \(format)")
+        //print("Input format: \(format)")
         
         inputNode.installTap(onBus: 0, bufferSize: UInt32(bufferSize), format: format) { [weak self] buffer, time in
             self?.processAudioBuffer(buffer)
         }
-        print("Tap installed on input node")
+        //print("Tap installed on input node")
     }
     
     private func processAudioBuffer(_ buffer: AVAudioPCMBuffer) {
         guard let channelData = buffer.floatChannelData?[0] else {
-            print("No channel data available")
+            //print("No channel data available")
             return
         }
         let frameCount = UInt(buffer.frameLength)
-        print("Processing buffer with \(frameCount) frames")
+        //print("Processing buffer with \(frameCount) frames")
         
         // Process audio data using FFT
         let frequencies = fft.process(data: Array(UnsafeBufferPointer(start: channelData, count: Int(frameCount))))
@@ -47,7 +47,7 @@ class AudioProcessor: ObservableObject {
         let bands = groupFrequencyBands(frequencies)
         
         // Print some debug info about the bands
-        print("Band values - Sub: \(bands["sub"] ?? 0), Low: \(bands["low"] ?? 0), Mid: \(bands["mid"] ?? 0)")
+        //print("Band values - Sub: \(bands["sub"] ?? 0), Low: \(bands["low"] ?? 0), Mid: \(bands["mid"] ?? 0)")
         
         DispatchQueue.main.async {
             self.frequencyBands = bands
