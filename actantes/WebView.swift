@@ -196,6 +196,8 @@ struct ContentView: View {
     @State private var audioEngineError: Error?
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
+    @State private var stopRecordingTimer: Timer?
+    @State private var showRecordButton: Bool = true
 
     var body: some View {
         if permissionGranted {
@@ -220,41 +222,29 @@ struct ContentView: View {
                     Spacer()
                     
                     // Record button
-                    Button(action: {
-                        if recorder.isRecording {
-                            recorder.stopRecording()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // Small delay to ensure URL is set
-                                if let videoURL = recorder.url {
-                                    self.savedURL = videoURL
-                                }
-                                print(self.savedURL?.absoluteString) // Call the function with the URL
-                                self.mov = convertMP4ToMOV(mp4URL: self.savedURL!)
-                                print(self.mov?.absoluteString)
-                                self.frameURL = extractRandomFrameURL(from: self.mov!)
-                                print(self.frameURL?.absoluteString)
-                                LivePhoto.generate(from: self.frameURL, videoURL: self.mov!, progress: { percent in }, completion: { livePhoto, resources in
-                                  // Or save the resources to the Photo library
-                                    LivePhoto.saveToLibrary(resources!, completion: {success in })
-                                  })
-                                }
-                        } else {
-                            recorder.startRecording()
-                        }
-                    }) {
-                        HStack(spacing: 10) {
-                            Image(systemName: recorder.isRecording ? "stop.circle.fill" : "record.circle")
-                                .font(.system(size: 48))
-                        }
-                        .foregroundColor(recorder.isRecording ? .gray : .white)
-                        .padding()
-                        .background(recorder.isRecording ? .white : .gray)
-                        .cornerRadius(100)
-                        .overlay(
-                            Circle()
-                                .stroke(recorder.isRecording ? .gray : .clear, lineWidth: 2)
-                        )
-                    }.padding(40)
-                        .opacity(0.7)
+                    if showRecordButton{
+                        Button(action: {
+                            if recorder.isRecording {
+                                stopRecording()
+                            } else {
+                                startRecording()
+                            }
+                        }) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "record.circle")
+                                    .font(.system(size: 48))
+                            }
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(.gray)
+                            .cornerRadius(100)
+                            .overlay(
+                                Circle()
+                                    .stroke(.gray, lineWidth: 2)
+                            )
+                        }.padding(40)
+                            .opacity(0.7)
+                    }
                 }
                 .alert("Recording Error", isPresented: $recorder.showError) {
                     Button("OK", role: .cancel) {}
@@ -270,6 +260,42 @@ struct ContentView: View {
                     }
                 }
         }
+    }
+    
+    private func stopRecording() {
+            // Stop the recording
+            recorder.stopRecording()
+            
+            // Invalidate the timer if it exists
+            stopRecordingTimer?.invalidate()
+            stopRecordingTimer = nil
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // Small delay to ensure URL is set
+                if let videoURL = recorder.url {
+                    self.savedURL = videoURL
+                }
+                print(self.savedURL?.absoluteString) // Call the function with the URL
+                let url = self.savedURL
+                print(url?.absoluteString)
+                self.mov = convertMP4ToMOV(mp4URL: url)
+                print(self.mov?.absoluteString)
+                let mov2 = self.mov
+                self.frameURL = extractRandomFrameURL(from: mov2)
+                print(self.frameURL?.absoluteString)
+                LivePhoto.generate(from: self.frameURL, videoURL: mov2, progress: { percent in }, completion: { livePhoto, resources in
+                    LivePhoto.saveToLibrary(resources!, completion: { success in })
+                })
+            }
+        }
+    
+    private func startRecording() {
+        recorder.startRecording()
+        showRecordButton = false // Hide the button
+
+        stopRecordingTimer = Timer.scheduledTimer(withTimeInterval: 1.8, repeats: false) { _ in
+                    stopRecording()
+            showRecordButton = true
+                }
     }
     
     private func startAudioEngine() {

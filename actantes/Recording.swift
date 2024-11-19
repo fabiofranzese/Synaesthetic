@@ -102,8 +102,8 @@ class ScreenRecorder: ObservableObject {
     }
 }
 
-func convertMP4ToMOV(mp4URL: URL) -> URL {
-    let asset = AVAsset(url: mp4URL)
+func convertMP4ToMOV(mp4URL: URL?) -> URL {
+    let asset = AVAsset(url: mp4URL!)
     
     // Create the destination URL for the .mov file
     let tempDirectory = FileManager.default.temporaryDirectory
@@ -125,15 +125,15 @@ func convertMP4ToMOV(mp4URL: URL) -> URL {
     return movURL
 }
 
-func extractRandomFrameURL(from videoURL: URL) -> URL? {
-    let asset = AVAsset(url: videoURL)
+func extractRandomFrameURL(from videoURL: URL?) -> URL? {
+    let asset = AVAsset(url: videoURL!)
     let imageGenerator = AVAssetImageGenerator(asset: asset)
     imageGenerator.appliesPreferredTrackTransform = true // Corrects orientation
     
-    if FileManager.default.fileExists(atPath: videoURL.path) {
-        print("File exists at: \(videoURL.path)")
+    if FileManager.default.fileExists(atPath: videoURL!.path) {
+        print("File exists at: \(videoURL!.path)")
     } else {
-        print("File does not exist at: \(videoURL.path)")
+        print("File does not exist at: \(videoURL!.path)")
         return nil
     }
     

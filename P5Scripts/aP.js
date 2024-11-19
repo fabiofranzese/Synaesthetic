@@ -20,14 +20,14 @@ class aP{
       let a = noise(this.id,t*.18)*TWO_PI*2;
       
       
-      if(this.freq == 0){this.amp = sub_freq/255;}
-      if(this.freq == 1){this.amp= low_freq/255;}
-      if(this.freq == 2){this.amp = mid_freq/255;}
-      if(this.freq == 3){this.amp = hi_freq/255;}
-      if(this.freq == 4){this.amp = treble_freq/255;}
+      if(this.freq == 0){this.amp = sub_freq/400;}
+      if(this.freq == 1){this.amp= low_freq/400;}
+      if(this.freq == 2){this.amp = mid_freq/400;}
+      if(this.freq == 3){this.amp = hi_freq/400;}
+      if(this.freq == 4){this.amp = treble_freq/400;}
       
-     this.pos.x += sin(a)*this.amp *  3.2 * (this.freq+1)  ;
-     this.pos.y += cos(a)*this.amp *  3.2 * (this.freq+1)  ;
+     this.pos.x += sin(a)*this.amp *  2.8 * (this.freq+2)  ;
+     this.pos.y += cos(a)*this.amp *  2.8 * (this.freq+2)  ;
       
       this.center.x =  w *.5 - this.pos.x   ;
       this.center.y =  h *.5-  this.pos.y  ;

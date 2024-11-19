@@ -292,6 +292,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = actantes/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Synaesthetic;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access your microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save Live Photos to your photo library.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to save Live Photos to your photo library.";
@@ -326,6 +327,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = actantes/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Synaesthetic;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access your microphone.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save Live Photos to your photo library.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to save Live Photos to your photo library.";

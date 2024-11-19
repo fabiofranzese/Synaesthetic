@@ -20,7 +20,7 @@ class LivePhoto {
         }
     }
     /// Generates a PHLivePhoto from an image and video.  Also returns the paired image and video.
-    public class func generate(from imageURL: URL?, videoURL: URL, progress: @escaping (CGFloat) -> Void, completion: @escaping (PHLivePhoto?, LivePhotoResources?) -> Void) {
+    public class func generate(from imageURL: URL?, videoURL: URL?, progress: @escaping (CGFloat) -> Void, completion: @escaping (PHLivePhoto?, LivePhotoResources?) -> Void) {
         queue.async {
             shared.generate(from: imageURL, videoURL: videoURL, progress: progress, completion: completion)
         }
@@ -78,7 +78,7 @@ class LivePhoto {
         }
     }
     
-    private func generate(from imageURL: URL?, videoURL: URL, progress: @escaping (CGFloat) -> Void, completion: @escaping (PHLivePhoto?, LivePhotoResources?) -> Void) {
+    private func generate(from imageURL: URL?, videoURL: URL?, progress: @escaping (CGFloat) -> Void, completion: @escaping (PHLivePhoto?, LivePhotoResources?) -> Void) {
         guard let cacheDirectory = cacheDirectory else {
             DispatchQueue.main.async {
                 completion(nil, nil)
@@ -86,14 +86,14 @@ class LivePhoto {
             return
         }
         let assetIdentifier = UUID().uuidString
-        let _keyPhotoURL = imageURL ?? generateKeyPhoto(from: videoURL)
+        let _keyPhotoURL = imageURL ?? generateKeyPhoto(from: videoURL!)
         guard let keyPhotoURL = _keyPhotoURL, let pairedImageURL = addAssetID(assetIdentifier, toImage: keyPhotoURL, saveTo: cacheDirectory.appendingPathComponent(assetIdentifier).appendingPathExtension("jpg")) else {
             DispatchQueue.main.async {
                 completion(nil, nil)
             }
             return
         }
-        addAssetID(assetIdentifier, toVideo: videoURL, saveTo: cacheDirectory.appendingPathComponent(assetIdentifier).appendingPathExtension("mov"), progress: progress) { (_videoURL) in
+        addAssetID(assetIdentifier, toVideo: videoURL!, saveTo: cacheDirectory.appendingPathComponent(assetIdentifier).appendingPathExtension("mov"), progress: progress) { (_videoURL) in
             if let pairedVideoURL = _videoURL {
                 _ = PHLivePhoto.request(withResourceFileURLs: [pairedVideoURL, pairedImageURL], placeholderImage: nil, targetSize: CGSize.zero, contentMode: PHImageContentMode.aspectFit, resultHandler: { (livePhoto: PHLivePhoto?, info: [AnyHashable : Any]) -> Void in
                     if let isDegraded = info[PHLivePhotoInfoIsDegradedKey] as? Bool, isDegraded {
